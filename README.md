@@ -1,301 +1,283 @@
-# Employee Management System - 10-Day MVP Development Plan
+# Employee Management System
 
-## Complete Technology Stack
+A modern full‑stack app to manage employees, departments, and user access with a clean React UI and a secure Spring Boot API.
 
-### Frontend Technologies
-```
-React 18 + TypeScript + Ant Design + Axios
-CSS-in-JS + React Router + React Hooks
-Jest + React Testing Library
-```
+---
 
-### Backend Technologies
-```
-Spring Boot 3.x + Java 17
-Spring Security + JWT Authentication
-JPA/Hibernate + PostgreSQL
-Spring Web + Spring Data JPA
-Maven + Spring Boot Actuator
-```
+# Tech stack
+- **Front‑end:** React 18 + TypeScript + Ant Design (Vite/CRA tooling), React Router, Axios
+- **Back‑end:** Spring Boot 3 (Java 17), Spring Security (JWT), JPA/Hibernate
+- **Database:** PostgreSQL 15
+- **Docs:** OpenAPI/Swagger UI
 
-### DevOps & Infrastructure
-```
-Docker + Docker Compose
-Nginx (Production Reverse Proxy)
-GitHub Actions (CI/CD)
-Health Checks + Monitoring
-```
+---
 
-### Development Tools
-```
-OpenAPI/Swagger Documentation
-Maven Wrapper + NPM
-ESLint + Prettier
-JUnit 5 + Integration Tests
-```
+# Dependencies
 
-## 10-Day Development Workflow
+## Front end
+- React, React Router, Axios
+- Ant Design (UI components)
+- TypeScript, Jest + RTL (tests)
 
-### Day 1: Project Foundation + DevOps Setup
+## Back end
+- `spring-boot-starter-web`, `spring-boot-starter-data-jpa`
+- `spring-boot-starter-security` (JWT auth)
+- PostgreSQL driver (`org.postgresql:postgresql`)
+- JJWT (`io.jsonwebtoken:jjwt-*`) for JSON Web Tokens
+- Lombok (optional dev convenience)
+- Springdoc OpenAPI UI (`springdoc-openapi-starter-webmvc-ui`)
 
-**Morning: Backend Scaffolding**
-- Spring Boot project initialization (spring-boot-starter-web, data-jpa, security)
-- PostgreSQL database configuration
-- Basic Entity design (Employee, Department)
-- Simple Repository interfaces
+---
 
-**Afternoon: Frontend Scaffolding + Complete DevOps**
-- Create React App + TypeScript
-- Ant Design integration
-- Axios configuration
-- **Docker + docker-compose.yml setup (database + applications)**
-- **GitHub Actions CI/CD pipeline configuration**
-- **Production Nginx configuration**
+# Installing prerequisites
 
-### Day 2: Core API Development
+> Ubuntu/Debian example (adjust for your OS)
 
-**Data Layer**
-- Employee, Department Entity completion
-- JPA Repository implementation
-- Database initialization scripts
+```bash
+# Java 17 + Maven
+sudo apt-get update
+sudo apt-get install -y openjdk-17-jdk maven
 
-**API Layer**
-- Employee CRUD API (5 basic endpoints)
-- Department management API
-- Unified response format
-- Basic exception handling
+# Node.js + npm (or install via nvm)
+sudo apt-get install -y nodejs npm
 
-### Day 3: Authentication System
-
-**Backend Authentication**
-- JWT utility classes
-- Spring Security basic configuration
-- Login/registration API
-- Token validation filter
-
-**Frontend Authentication**
-- Login page component
-- Token storage (memory storage)
-- Axios request interceptor
-- Route guards
-
-### Day 4: Employee Management Frontend
-
-**Core Component Development**
-- Employee list page (Ant Design Table)
-- Employee add/edit forms
-- Employee details page
-- Department selection component
-
-**State Management**
-- React useState/useEffect (no Redux)
-- Custom hooks for API calls
-- Form state management
-
-### Day 5: Frontend-Backend Integration + Basic Testing
-
-**Integration Testing**
-- API functionality verification
-- Frontend page functionality testing
-- CORS issue resolution
-- Error handling optimization
-
-**Test Writing**
-- Backend unit tests (mainly Service layer)
-- Frontend component tests (key components)
-- API integration tests
-
-### Day 6-7: Feature Enhancement
-
-**Business Features**
-- Employee search/filtering
-- Data pagination
-- Employee status management (active/terminated)
-- Department employee statistics
-
-**User Experience Optimization**
-- Loading state display
-- Error message optimization
-- Form validation
-- Responsive layout adjustment
-
-### Day 8: Production Environment Setup
-
-**Production Configuration**
-- Nginx reverse proxy configuration
-- Production Docker Compose setup
-- Environment variable management
-- Database production initialization
-
-**Performance Optimization**
-- Multi-stage Docker builds
-- Image size optimization
-- Health check configuration
-
-### Day 9: Deployment & Documentation
-
-**Deployment Preparation**
-- Production environment configuration
-- Docker Compose production setup
-- Environment variable management
-- Database initialization scripts
-
-**Documentation**
-- README.md (project introduction, setup guide)
-- API documentation (Swagger auto-generation)
-- Deployment documentation
-
-### Day 10: Final Touches & Optimization
-
-**Code Quality**
-- Code review and refactoring
-- Test coverage improvement
-- Basic performance optimization
-
-**Demo Preparation**
-- Demo data preparation
-- Feature demonstration workflow
-- Bug fixes
-
-## Technical Implementation Details
-
-### Backend Core Structure
-```
-src/main/java/
-├── entity/
-│   ├── Employee.java
-│   ├── Department.java
-│   └── User.java
-├── repository/
-│   ├── EmployeeRepository.java
-│   ├── DepartmentRepository.java
-│   └── UserRepository.java
-├── service/
-│   ├── EmployeeService.java
-│   ├── DepartmentService.java
-│   └── AuthService.java
-├── controller/
-│   ├── EmployeeController.java
-│   ├── DepartmentController.java
-│   └── AuthController.java
-├── config/
-│   ├── SecurityConfig.java
-│   ├── JwtConfig.java
-│   └── OpenApiConfig.java
-├── dto/
-│   ├── EmployeeDTO.java
-│   ├── DepartmentDTO.java
-│   └── AuthRequest.java
-└── util/
-    └── JwtUtil.java
+# PostgreSQL + dev headers
+sudo apt-get install -y postgresql postgresql-contrib libpq-dev
 ```
 
-### Frontend Core Structure
-```
-src/
-├── components/
-│   ├── employee/
-│   │   ├── EmployeeList.tsx
-│   │   └── EmployeeForm.tsx
-│   ├── department/
-│   │   ├── DepartmentList.tsx
-│   │   └── DepartmentForm.tsx
-│   ├── auth/
-│   │   └── LoginForm.tsx
-│   └── layout/
-│       └── MainLayout.tsx
-├── services/
-│   ├── api.ts
-│   ├── employeeService.ts
-│   └── departmentService.ts
-├── hooks/
-│   ├── useEmployees.ts
-│   ├── useDepartments.ts
-│   └── useAuth.ts
-├── types/
-│   └── api.ts
-├── context/
-│   └── AuthContext.tsx
-└── utils/
-    └── constants.ts
+Windows/macOS users:
+- Install **Java 17** (Temurin), **Maven**, **Node.js 18+**, and **Docker Desktop** from their official sites.
+- Ensure `java -version`, `mvn -v`, and `node -v` work in your terminal.
+
+---
+
+# Cloning the repo
+
+```bash
+git clone <YOUR-REPO-URL>.git
+cd employee-management-system
 ```
 
-### Production Docker Configuration
-```yaml
-# docker-compose.prod.yml
-services:
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: employee_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password123
-      POSTGRES_HOST_AUTH_METHOD: md5
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d employee_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+If you cloned previously without dependencies, run front‑end install later with `npm ci` (or `npm i`) in `/frontend`.
 
-  backend:
-    build: ./backend/employee-management-system
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/employee_db
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password123
-      - JWT_SECRET=secureJwtSecret256bits
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/api/auth/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+---
 
-  nginx:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile.prod
-    depends_on:
-      backend:
-        condition: service_healthy
-    ports:
-      - "80:80"
-    restart: unless-stopped
+# Database schema
 
-volumes:
-  postgres_data:
+The schema is generated by JPA on startup (`ddl-auto` in `application.yml`). Optional seed/demo data is provided by `src/main/resources/data.sql`.
+
+**Optional manual DB setup (psql):**
+```bash
+sudo -u postgres psql
+CREATE DATABASE employee_db;
+CREATE USER emp_user WITH ENCRYPTED PASSWORD 'YOUR_STRONG_PASSWORD';
+GRANT ALL PRIVILEGES ON DATABASE employee_db TO emp_user;
 ```
 
-## Core Feature Scope
+---
 
-### Minimum Viable Product (MVP)
-1. **User Authentication**: Login/logout with JWT
-2. **Employee Management**: CRUD operations
-3. **Department Management**: Basic department information
-4. **Data Display**: List, details, search functionality
-5. **Production Deployment**: Nginx + Docker setup
+# Configuration (environment variables)
 
-### Technical Highlights
-- **Modern Tech Stack**: React 18 + TypeScript + Spring Boot
-- **Containerized Deployment**: Docker + Docker Compose + Nginx
-- **Automated Pipeline**: CI/CD with GitHub Actions
-- **API Design**: RESTful architecture with OpenAPI documentation
-- **Code Quality**: Unit tests + Integration tests
-- **Security**: JWT authentication + Spring Security
-- **Production Ready**: Health checks + Monitoring
+These are consumed by Spring Boot (`application.yml`) and `docker-compose.yml`:
 
-## Learning Outcomes
+```bash
+# Database
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/employee_db
+SPRING_DATASOURCE_USERNAME=postgres           # or emp_user
+SPRING_DATASOURCE_PASSWORD=your_db_password
 
-Upon completion of this project, you will have mastered:
-- **Full-Stack Development**: Complete frontend-backend development workflow
-- **Modern Java**: Spring Boot + JPA best practices
-- **React Ecosystem**: TypeScript + Hooks + Ant Design
-- **DevOps Fundamentals**: Docker + CI/CD + Nginx deployment
-- **Project Management**: MVP development methodology
-- **Production Deployment**: Complete production environment setup
+# JWT: use a LONG secret (>= 64 bytes) for HS512
+JWT_SECRET=please_generate_a_long_random_secret_string_64chars_or_more
 
-This streamlined version maintains technical modernity while controlling complexity, making it perfect for a 10-day intensive learning and development cycle.
+# CORS
+CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+```
+
+> Tip (Windows): This repo includes `generate-jwt-secret.bat` to generate a strong JWT secret.
+
+---
+
+# Building and running (manual)
+
+## 1) Start PostgreSQL
+Make sure Postgres is running and `SPRING_DATASOURCE_*` match your local setup.
+
+## 2) Back end (Spring Boot)
+
+```bash
+cd backend/employee-management-system
+mvn -DskipTests package
+java -jar target/*.jar
+# API at http://localhost:8080
+# Swagger UI at http://localhost:8080/swagger-ui.html
+```
+
+> To run in dev with live reload:
+```bash
+mvn spring-boot:run
+```
+
+## 3) Front end (React)
+
+```bash
+cd frontend
+npm ci
+npm start          # or: npm run dev
+# App at http://localhost:3000
+```
+
+---
+
+# 🚀 Quick Start (Recommended) — Docker
+
+The fastest way to run everything without installing local toolchains.
+
+## Prerequisites
+- Docker 20.10+
+- Docker Compose v2+
+- Git
+
+## 1️⃣ Clone and Start
+
+```bash
+git clone https://github.com/DoaaGomaa89/Development-Plan-for-employee-management-system.git
+docker compose up --build
+```
+
+## 2️⃣ Access
+
+- **Frontend:** http://localhost:3000
+- **API / Swagger UI:** http://localhost:8080/swagger-ui.html
+- **PostgreSQL:** localhost:5432 (user/password from `.env` or your shell env)
+
+> The default compose file creates a `postgres` service, builds backend & frontend, and wires health checks.
+
+## 3️⃣ Stop
+
+```bash
+docker compose down
+# or remove volumes for a clean DB:
+docker compose down -v
+```
+
+## 4️⃣ Database shell (inside container)
+```bash
+docker compose exec postgres psql -U $POSTGRES_USER -d $POSTGRES_DB
+```
+
+---
+
+# Features
+
+- 🔐 **JWT Authentication:** login, role‑based authorization
+- 👥 **Employee & Department CRUD**
+- 📊 **Filtering, sorting, search**
+- 🧰 **OpenAPI docs** (try it out via Swagger UI)
+- 🧪 **Unit & integration tests** for critical flows
+
+---
+
+# API Documentation
+
+OpenAPI spec is available at runtime via Swagger UI:  
+`http://localhost:8080/swagger-ui.html`
+
+The repository also includes `api-docs.yaml` at the repo root for offline inspection.
+
+---
+
+# Project Structure (key parts)
+
+```
+backend/employee-management-system
+├── src/main/java/edu/.../employee_management_system
+│   ├── entity/           # JPA entities: Employee, Department, User, ...
+│   ├── repository/       # Spring Data repositories
+│   ├── controller/       # REST controllers
+│   ├── service/          # Business logic
+│   ├── security/         # JWT filters/config
+│   └── config/           # CORS, Swagger, etc.
+├── src/main/resources/
+│   ├── application.yml   # externalized config (DB, JWT, CORS)
+│   └── data.sql          # optional seed data
+└── Dockerfile            # backend container image
+
+frontend/
+├── src/                  # React + TS app
+├── package.json
+└── Dockerfile            # frontend container image
+
+docker-compose.yml        # PostgreSQL + backend + frontend
+```
+
+---
+
+# Troubleshooting
+
+- **JWT error: "key size not secure enough for HS512"**  
+  Use a secret **≥ 64 bytes** (e.g., `generate-jwt-secret.bat`) and set `JWT_SECRET` before starting.
+
+- **Port in use (3000/8080/5432):**  
+  Stop conflicting apps or edit `docker-compose.yml` to map to different host ports, e.g.:
+  ```yaml
+  services:
+    backend:
+      ports: ["8081:8080"]
+    frontend:
+      ports: ["3001:3000"]
+    postgres:
+      ports: ["5433:5432"]
+  ```
+
+- **Clean rebuild:**  
+  ```bash
+  docker compose down -v
+  docker compose up --build --no-cache
+  ```
+
+- **DB connection issues:**  
+  Verify env vars, network, and that Postgres is `healthy` in `docker compose ps`.
+  Confirm you can connect:
+  ```bash
+  docker compose exec postgres psql -U $POSTGRES_USER -d $POSTGRES_DB -c "\dt"
+  ```
+
+---
+
+# 🛠️ Advanced Setup & Production
+
+See **PRODUCTION-SETUP.md** for hardening, environment files, and production compose (`docker-compose.prod.yml`).
+
+<details>
+<summary>📋 Manual front‑end dev tips</summary>
+
+```bash
+cd frontend
+npm ci
+npm start       # CRA/Vite dev server with HMR
+```
+</details>
+
+<details>
+<summary>🧪 Testing</summary>
+
+**Backend**
+```bash
+cd backend/employee-management-system
+mvn test
+```
+
+**Frontend**
+```bash
+cd frontend
+npm test
+```
+
+</details>
+
+---
+
+# License
+
+This project is licensed under the terms of the **MIT License** (see `LICENSE`).
+
