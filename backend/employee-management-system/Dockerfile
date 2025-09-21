@@ -1,23 +1,20 @@
-FROM openjdk:17-jdk-slim
+# syntax=docker/dockerfile:1
 
+# --- Build stage ---
+FROM maven:3.9.8-eclipse-temurin-17 AS build
+WORKDIR /workspace
+COPY pom.xml .
+# Pre-fetch deps for faster rebuilds
+RUN mvn -q -DskipTests dependency:go-offline
+COPY src ./src
+# Build the jar
+RUN mvn -q -DskipTests package
+
+# --- Runtime stage ---
+FROM eclipse-temurin:17-jre
 WORKDIR /app
-
-# Install Maven and curl for health checks
-RUN apt-get update && apt-get install -y maven curl && rm -rf /var/lib/apt/lists/*
-
-# Copy all files
-COPY . .
-
-# Make mvnw executable
-RUN chmod +x ./mvnw
-
-# Build the application
-RUN ./mvnw clean package -DskipTests -B
-
-# Verify JAR was created
-RUN ls -la target/ && echo "JAR files created:" && ls -la target/*.jar
-
+# Copy whatever jar was produced
+COPY --from=build /workspace/target/*.jar app.jar
+ENV JAVA_OPTS=""
 EXPOSE 8080
-
-# Run the application
-CMD ["java", "-jar", "target/employee-management-system-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh","-c","java $JAVA_OPTS -jar /app/app.jar"]
