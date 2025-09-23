@@ -274,10 +274,4 @@ npm test
 ```
 
 </details>
-
----
-
-# License
-
-This project is licensed under the terms of the **MIT License** (see `LICENSE`).
-
+ 
